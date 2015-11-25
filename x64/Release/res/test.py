@@ -1,3 +1,0 @@
-print("asd")
-
-print("asdad")
