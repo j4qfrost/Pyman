@@ -26,7 +26,7 @@ Selector* selector = NULL;
 #include "Tracker.h"
 #include "Collision.h"
 
-Collision* collision = new Collision();
+Collision collision;
 
 /*
  *
@@ -42,7 +42,7 @@ void drawBlocks(const Package* const package)
 			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), SDL_MapRGB(surface->getSurface()->format, 0, 255, 0));
 		}
 		else
-			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), collision->WALL);
+			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), collision.WALL);
 	}
 }
 
@@ -145,7 +145,7 @@ int main(int argc, char** argv)
         if (!Manage::editing)
         {
 			SDL_FillRect(surface->getSurface(), &(surface->getSurface()->clip_rect),backColor);
-        	//drawBlocks(package);
+        	drawBlocks(package);
 			surface->applySurface(0,0,bgOptimized,NULL);
 
 			consoleButton->handle();
@@ -153,17 +153,16 @@ int main(int argc, char** argv)
 
 			SDL_FillRect(surface->getSurface(),charCoord,0);
 
-			if (keyboardState[SDL_SCANCODE_SPACE] && collision->collides(3,charCoord) && 
-				!(collision->collides(2, charCoord)|| collision->collides(1, charCoord) || collision->collides(0, charCoord)))
+			if (keyboardState[SDL_SCANCODE_SPACE] && collision.collides(3,charCoord) )
 				airTime = 15;
-			if (keyboardState[SDL_SCANCODE_S] && !collision->collides(3,charCoord))
+			if (keyboardState[SDL_SCANCODE_S] && !collision.collides(3,charCoord))
 				velY += 2;
-			if (keyboardState[SDL_SCANCODE_D] && !collision->collides(2,charCoord))
+			if (keyboardState[SDL_SCANCODE_D] && !collision.collides(2,charCoord))
 				velX += 2;
-			if (keyboardState[SDL_SCANCODE_A] && !collision->collides(0, charCoord))
+			if (keyboardState[SDL_SCANCODE_A] && !collision.collides(0, charCoord))
 				velX -= 2;
 
-			collision->gravity(charCoord, collision->collides(3,charCoord));
+			collision.gravity(charCoord, collision.collides(3,charCoord));
 
 			charCoord->x += velX;
 			charCoord->y += velY;
