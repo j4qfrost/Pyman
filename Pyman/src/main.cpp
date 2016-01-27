@@ -24,49 +24,13 @@ Selector* selector = NULL;
 
 #include "Console.h"
 #include "Tracker.h"
+#include "Collision.h"
+
+Collision* collision = new Collision();
 
 /*
  *
  */
-
-Uint32 WALL = 0;
-
-bool collision(unsigned dir, SDL_Rect* box)
-{
-	SDL_Rect surfaceRect = surface->getSurface()->clip_rect;
-	unsigned eval = 0;
-	switch (dir)
-	{
-	case 0:
-		eval = (box->y + box->h)*surfaceRect.w + box->x;
-		break;
-	case 1:
-		eval = (box->y + box->h)*surfaceRect.w + box->x;
-		break;
-	case 2:
-		eval = (box->y + box->h)*surfaceRect.w + box->x;
-		break;
-	case 3:
-		eval = (box->y + box->h)*surfaceRect.w + box->x;
-		break;
-	default:
-		return false;
-		break;
-	}
-	Uint32 pixel = ((Uint32*)surface->getSurface()->pixels)[eval];
-	return pixel == WALL;
-}
-
-void gravity(SDL_Rect* box, bool grounded)
-{
-	if (!grounded)
-		box->y += 2;
-}
-
-bool onGround(SDL_Rect* box)
-{
-	return collision(3, box);
-}
 
 void drawBlocks(const Package* const package)
 {
@@ -78,7 +42,7 @@ void drawBlocks(const Package* const package)
 			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), SDL_MapRGB(surface->getSurface()->format, 0, 255, 0));
 		}
 		else
-			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), WALL);
+			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), collision->WALL);
 	}
 }
 
@@ -103,8 +67,6 @@ int main(int argc, char** argv)
 
     if (mainframeInit() < 0)
         exit(-1);
-
-	SDL_MapRGB(surface->getSurface()->format, 255, 0, 0);
 	SDL_Surface* bgOptimized = SDL_ConvertSurface(background,surface->getSurface()->format,NULL);
 	/*  optimizedSurface = SDL_ConvertSurface( loadedSurface, gScreenSurface->format, NULL );
 	if( optimizedSurface == NULL )
@@ -191,16 +153,17 @@ int main(int argc, char** argv)
 
 			SDL_FillRect(surface->getSurface(),charCoord,0);
 
-			if (keyboardState[SDL_SCANCODE_W] && onGround(charCoord))
+			if (keyboardState[SDL_SCANCODE_SPACE] && collision->collides(3,charCoord) && 
+				!(collision->collides(2, charCoord)|| collision->collides(1, charCoord) || collision->collides(0, charCoord)))
 				airTime = 15;
-			if (keyboardState[SDL_SCANCODE_S] && !onGround(charCoord))
+			if (keyboardState[SDL_SCANCODE_S] && !collision->collides(3,charCoord))
 				velY += 2;
-			if (keyboardState[SDL_SCANCODE_D])
+			if (keyboardState[SDL_SCANCODE_D] && !collision->collides(2,charCoord))
 				velX += 2;
-			if (keyboardState[SDL_SCANCODE_A])
+			if (keyboardState[SDL_SCANCODE_A] && !collision->collides(0, charCoord))
 				velX -= 2;
 
-			gravity(charCoord,onGround(charCoord));
+			collision->gravity(charCoord, collision->collides(3,charCoord));
 
 			charCoord->x += velX;
 			charCoord->y += velY;

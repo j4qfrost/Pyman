@@ -23,6 +23,7 @@
     <ClInclude Include="auxilary\setup.h" />
     <ClInclude Include="header\Button.h" />
     <ClInclude Include="header\Character.h" />
+    <ClInclude Include="header\Collision.h" />
     <ClInclude Include="header\Console.h" />
     <ClInclude Include="header\FileText.h" />
     <ClInclude Include="header\Graphic.h" />
@@ -48,6 +49,7 @@
   <ItemGroup>
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Character.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\FileText.cpp" />
     <ClCompile Include="src\Graphic.cpp" />
