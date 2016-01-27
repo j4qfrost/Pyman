@@ -29,6 +29,34 @@ Selector* selector = NULL;
  *
  */
 
+Uint32 WALL = 0;
+
+bool collision(unsigned dir, SDL_Rect* box)
+{
+	SDL_Rect surfaceRect = surface->getSurface()->clip_rect;
+	unsigned eval = 0;
+	switch (dir)
+	{
+	case 0:
+		eval = (box->y + box->h)*surfaceRect.w + box->x;
+		break;
+	case 1:
+		eval = (box->y + box->h)*surfaceRect.w + box->x;
+		break;
+	case 2:
+		eval = (box->y + box->h)*surfaceRect.w + box->x;
+		break;
+	case 3:
+		eval = (box->y + box->h)*surfaceRect.w + box->x;
+		break;
+	default:
+		return false;
+		break;
+	}
+	Uint32 pixel = ((Uint32*)surface->getSurface()->pixels)[eval];
+	return pixel == WALL;
+}
+
 void gravity(SDL_Rect* box, bool grounded)
 {
 	if (!grounded)
@@ -37,11 +65,7 @@ void gravity(SDL_Rect* box, bool grounded)
 
 bool onGround(SDL_Rect* box)
 {
-	Uint32* pixels = (Uint32*)surface->getSurface()->pixels;
-	SDL_Rect surfaceRect = surface->getSurface()->clip_rect;
-
-	return pixels[(box->y+box->h)*surfaceRect.w + box->x]
-	              == SDL_MapRGB(surface->getSurface()->format,255,0,0);
+	return collision(3, box);
 }
 
 void drawBlocks(const Package* const package)
@@ -54,7 +78,7 @@ void drawBlocks(const Package* const package)
 			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), SDL_MapRGB(surface->getSurface()->format, 0, 255, 0));
 		}
 		else
-			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), SDL_MapRGB(surface->getSurface()->format, 255, 0, 0));
+			SDL_FillRect(surface->getSurface(), package->objects[i]->getPos(), WALL);
 	}
 }
 
@@ -72,7 +96,6 @@ void changeLanguage(string language)
 
 int main(int argc, char** argv)
 {
-
 	SDL_Surface* background = IMG_Load("res/test_red.png");
 
 	setvbuf(stdout, NULL, _IONBF, 0);
@@ -81,6 +104,7 @@ int main(int argc, char** argv)
     if (mainframeInit() < 0)
         exit(-1);
 
+	SDL_MapRGB(surface->getSurface()->format, 255, 0, 0);
 	SDL_Surface* bgOptimized = SDL_ConvertSurface(background,surface->getSurface()->format,NULL);
 	/*  optimizedSurface = SDL_ConvertSurface( loadedSurface, gScreenSurface->format, NULL );
 	if( optimizedSurface == NULL )
@@ -158,7 +182,7 @@ int main(int argc, char** argv)
 
         if (!Manage::editing)
         {
-        	
+			SDL_FillRect(surface->getSurface(), &(surface->getSurface()->clip_rect),backColor);
         	//drawBlocks(package);
 			surface->applySurface(0,0,bgOptimized,NULL);
 
