@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\closeButton.png" />
+    <Image Include="res\test_red.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{86DF32DC-14B6-4989-93F2-0549D2FC5466}</ProjectGuid>
@@ -140,6 +141,11 @@
     <SourcePath>C:\Users\frosty\Documents\Visual Studio 2015\Projects\Pyman\Pyman\src;$(SourcePath)</SourcePath>
     <LibraryPath>C:\Python34\libs;C:\Users\frosty\Desktop\Libs\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Python34\include;C:\Users\frosty\Desktop\Libs\SDL2\include;C:\Users\frosty\Documents\Visual Studio 2015\Projects\Pyman\Pyman\levels;C:\Users\frosty\Documents\Visual Studio 2015\Projects\Pyman\Pyman\header;C:\Users\frosty\Documents\Visual Studio 2015\Projects\Pyman\Pyman\auxilary;$(IncludePath)</IncludePath>
+    <SourcePath>C:\Users\frosty\Documents\Visual Studio 2015\Projects\Pyman\Pyman\src;$(SourcePath)</SourcePath>
+    <LibraryPath>C:\Python34\libs;C:\Users\frosty\Desktop\Libs\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -158,9 +164,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

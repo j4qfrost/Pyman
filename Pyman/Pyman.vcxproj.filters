@@ -163,5 +163,8 @@
     <Image Include="res\closeButton.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\test_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

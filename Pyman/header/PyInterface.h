@@ -13,6 +13,7 @@
 #define	PYINTERFACE_H_
 
 #include "Interface.h"
+#undef _DEBUG
 #include <Python.h>
 #include <string>
 

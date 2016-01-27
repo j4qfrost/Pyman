@@ -33,8 +33,6 @@ void gravity(SDL_Rect* box, bool grounded)
 {
 	if (!grounded)
 		box->y += 2;
-	else
-		box->y -= box->y % box->h;
 }
 
 bool onGround(SDL_Rect* box)
@@ -74,11 +72,26 @@ void changeLanguage(string language)
 
 int main(int argc, char** argv)
 {
+
+	SDL_Surface* background = IMG_Load("res/test_red.png");
+
 	setvbuf(stdout, NULL, _IONBF, 0);
 	setvbuf(stderr, NULL, _IONBF, 0);
 
     if (mainframeInit() < 0)
         exit(-1);
+
+	SDL_Surface* bgOptimized = SDL_ConvertSurface(background,surface->getSurface()->format,NULL);
+	/*  optimizedSurface = SDL_ConvertSurface( loadedSurface, gScreenSurface->format, NULL );
+	if( optimizedSurface == NULL )
+	{
+	printf( "Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+	}
+
+	//Get rid of old loaded surface
+	SDL_FreeSurface( loadedSurface ); */
+
+	SDL_FreeSurface(background);
 
     Uint32 ticks;
     bool running = true;
@@ -145,9 +158,9 @@ int main(int argc, char** argv)
 
         if (!Manage::editing)
         {
-        	SDL_FillRect(surface->getSurface(),&(surface->getSurface()->clip_rect),
-        					backColor);
-        	drawBlocks(package);
+        	
+        	//drawBlocks(package);
+			surface->applySurface(0,0,bgOptimized,NULL);
 
 			consoleButton->handle();
 			consoleButton->show();
