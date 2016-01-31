@@ -20,9 +20,8 @@ public:
     Character(const Character& orig);
     
     virtual ~Character();
-private:
-    string* tools;
-    int belt;
+
+	//Add dialogue options etc.
 };
 
 #endif	/* CHARACTER_H_ */

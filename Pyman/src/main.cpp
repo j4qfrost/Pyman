@@ -68,14 +68,6 @@ int main(int argc, char** argv)
     if (mainframeInit() < 0)
         exit(-1);
 	SDL_Surface* bgOptimized = SDL_ConvertSurface(background,surface->getSurface()->format,NULL);
-	/*  optimizedSurface = SDL_ConvertSurface( loadedSurface, gScreenSurface->format, NULL );
-	if( optimizedSurface == NULL )
-	{
-	printf( "Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-	}
-
-	//Get rid of old loaded surface
-	SDL_FreeSurface( loadedSurface ); */
 
 	SDL_FreeSurface(background);
 
