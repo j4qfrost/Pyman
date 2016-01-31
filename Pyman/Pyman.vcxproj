@@ -39,6 +39,7 @@
     <ClInclude Include="header\Sprite.h" />
     <ClInclude Include="header\Surface.h" />
     <ClInclude Include="header\Tracker.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\FreeMonoBold.ttf" />
@@ -47,6 +48,7 @@
     <None Include="res\test.py" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Collision.cpp" />

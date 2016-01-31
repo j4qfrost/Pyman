@@ -21,6 +21,7 @@ public:
     
     virtual ~Character();
 
+
 	//Add dialogue options etc.
 };
 
