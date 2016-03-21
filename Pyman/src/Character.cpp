@@ -13,6 +13,20 @@ Character::Character() {
 Character::Character(const Character& orig) {
 }
 
+void Character::draw()
+{
+	Graphic::draw();
+}
+
 Character::~Character() {
+	
+	for (map<string, void*>::iterator it = actionMap->begin(); it != actionMap->end(); it++)
+	{
+		delete it->second;
+		actionMap->erase(it);
+	}
+
+	delete actionMap, dialogue;
+
 }
 

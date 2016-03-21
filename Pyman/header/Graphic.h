@@ -12,20 +12,23 @@
 #include <map>
 
 #include "Sprite.h"
-#include "Surface.h"
+#include "externs.h"
 
 class Graphic : public Sprite {
 public:
     Graphic();
     Graphic(SDL_Surface* s);
     
-    map<string,SDL_Rect> getClips() const;
+    const map<string,SDL_Rect>* getClips() const;
     
-    void addClip(string type, int x, int y, int w, int h);
+    void addClip(const string& type, int x, int y, int w, int h);
+	virtual void draw();
+
+	SDL_Rect* position;
     
     virtual ~Graphic();
 private:
-    map<string,SDL_Rect> clips;
+    map<string,SDL_Rect>* clips;
     Surface* surface;
 };
 

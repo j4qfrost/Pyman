@@ -21,8 +21,20 @@ public:
     
     virtual ~Character();
 
+	void moveLeft();
+	void moveRight();
+	void moveUp();
+	void moveDown();
 
-	//Add dialogue options etc.
+	void draw();
+
+	const string name;
+
+private:
+	map<string, void*>* actionMap;
+	map<string, string>* dialogue;
+
+	//NOTE: ideas of menu pause arose from texteditor
 };
 
 #endif	/* CHARACTER_H_ */
