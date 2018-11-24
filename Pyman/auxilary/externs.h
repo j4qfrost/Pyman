@@ -28,7 +28,7 @@ namespace Manage {
 	const int LANG_COUNT = 2;
 	const string VALID_LANG[LANG_COUNT] = {
 		"python",
-		"cplusplus"
+		// "cplusplus"
 	};
 
 	static string lang = "python";
